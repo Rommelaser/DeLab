@@ -1,5 +1,13 @@
 # DeLab
+Universidad Simón Bolívar
+
+Estudiante: Rommel Contreras
+Carnet: 14-10242
+Profesora: Emma Di Battista
+
+
 Tarea de SDN
+
 
 El programa por defecto hace una consulta de las organizaciones a las que tenemos acceso con la clave el API_KEY entregado y guarda la respuesta en la variable orgData
 
@@ -34,4 +42,3 @@ jsontocsv(p): #genera un archivo con extensión .csv con el inventario de los di
 
 printcsvdata(): #imprime en el terminal la data del inventario en formato .json
 
-# DeLab
