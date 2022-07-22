@@ -1,3 +1,4 @@
+
 ########################################### Imports ########################################################
 import pprint
 import json
@@ -10,7 +11,7 @@ from pprint import pp
 ########################################## Urls #############################################################
 
 urlo = "https://api.meraki.com/api/v1/organizations"
-urld="https://api.meraki.com/api/v1/organizations/681155/devices"
+urld="https://api.meraki.com/api/v1/organizations/organizationId/devices"
 
 ########################################## Headers/Payload ###################################################
 payload = None
@@ -19,30 +20,31 @@ headers = {
     "Accept": "application/json",
     "X-Cisco-Meraki-API-Key": "6bec40cf957de430a6f1f2baa056b99a4fac9ea0"
 }
-########################################## Default requests ##################################################
-response = requests.request('GET', urlo, headers=headers, data = payload)
-print(response.raise_for_status())
-orgData= json.loads(response.text)
-response= requests.request('GET', urld, headers=headers, data = payload)
-print(response.raise_for_status())
-orgDev= json.loads(response.text)
+
 
 ######################################### functions ###########################################################
 
+
 def org_Data(): #Consulta la data de las organizaciones a las que tenemos 
     response = requests.request('GET', urlo, headers=headers, data = payload)
+    orgData = json.loads(response.text)
     print(response.raise_for_status())
-    orgData= json.loads(response.text)
+    return orgData
 
 def org_Dev(): #Consulta los dispositivos de DeLab
-    response= requests.request('GET', urld, headers=headers, data = payload)
-    print(response.raise_for_status())
+    oId=o_id()
+    aux_url="https://api.meraki.com/api/v1/organizations/organizationId/devices".replace('organizationId', oId)
+    #print(aux_url) #Debug print
+    response= requests.request('GET', aux_url, headers=headers, data = payload)
     orgDev= json.loads(response.text)
-
-def  oid_DeLab(): #busca el organization Id de DeLab
+    print(response.raise_for_status())
+    return orgDev
+def  o_id(): #busca el organization Id asociado al nombre de organización que se le pasa
+    oName=input("introduce el nombre de la organización de la cual quieres consultar sus dispositivos: ")
+    #print(oName)   #Debug print
     DeLab=[]
     for i in range(len(orgData)):
-        if(orgData[i]['name']=='DeLab'):    	    
+        if(orgData[i]['name']==oName):    	    
             DeLab.append(orgData[i])
         DeLab.append(0)
     return DeLab[0]['id']
@@ -112,3 +114,25 @@ def printcsvdata(): #imprime en el terminal la data del inventario en formato .j
     p=productType()
     formpt(p)
     pp(p)
+
+
+########################################## Default requests ##################################################
+orgData=org_Data()
+
+orgDev= org_Dev()
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+

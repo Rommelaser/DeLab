@@ -17,16 +17,21 @@ Se le agregó una nueva feature para tambien consultar los dispositivos asociado
 
 y generar un archivo csv con el inventario de dispositivos wireless y appliance
 
-org_Data(): #Consulta la data de las organizaciones a las que tenemos Se le agregó el método raise_for_status() de python para validar que las solicitudes están recibiendo la respuesta esperada.
+org_Data(): #Consulta la data de las organizaciones a las que tenemos acceso. Se le agregó el método raise_for_status() de python para validar que las solicitudes están recibiendo la respuesta esperada. Retorna una lista con las organizaciones.
 
-org_Dev(): #Consulta los dispositivos de DeLab
+Si todo está ok imprime None
+
+org_Dev(oName): #Consulta los dispositivos de DeLab
 (Se le agregó el método raise_for_status() de python para validar que las solicitudes están recibiendo la respuesta esperada.t )
+Ahora la función requiere el nombre de la organización a la cual se le quiere consultar los dispositivos que contiene, retorna una lista con los dispositivos.
+
+si todo está Ok imprime None
 
 def printallOrg(): #lista todas las organizaciones
 
 def printOrg(i): #imprime una organización en específico
 
-oid_DeLab(): #busca el organization Id de DeLab
+def  o_id(oName): #busca el organization Id asociado al nombre de organización que se le pasa retorna un string con el id de la organización.
 
 printallOrg(): #lista todas las organizaciones
 
