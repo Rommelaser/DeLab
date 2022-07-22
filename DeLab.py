@@ -21,18 +21,22 @@ headers = {
 }
 ########################################## Default requests ##################################################
 response = requests.request('GET', urlo, headers=headers, data = payload)
+print(response.raise_for_status())
 orgData= json.loads(response.text)
 response= requests.request('GET', urld, headers=headers, data = payload)
+print(response.raise_for_status())
 orgDev= json.loads(response.text)
 
 ######################################### functions ###########################################################
 
 def org_Data(): #Consulta la data de las organizaciones a las que tenemos 
     response = requests.request('GET', urlo, headers=headers, data = payload)
+    print(response.raise_for_status())
     orgData= json.loads(response.text)
 
 def org_Dev(): #Consulta los dispositivos de DeLab
     response= requests.request('GET', urld, headers=headers, data = payload)
+    print(response.raise_for_status())
     orgDev= json.loads(response.text)
 
 def  oid_DeLab(): #busca el organization Id de DeLab
