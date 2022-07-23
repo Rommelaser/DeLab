@@ -32,6 +32,8 @@ def org_Data(): #Consulta la data de las organizaciones a las que tenemos
     orgData = json.loads(response.text)
     if(response.raise_for_status()==None):
         print("se ha consultado exitosamente las organizaciones a las que puede acceder con su API_kEY \\ el resultado de la consulta se encuentra en la variable: orgData\n")
+    else:
+        print("Ocurrió un problema con la consulta")
     return orgData
 
 def org_Dev(oId): #Consulta los dispositivos de DeLab
@@ -40,6 +42,8 @@ def org_Dev(oId): #Consulta los dispositivos de DeLab
     response= requests.request('GET', aux_url, headers=headers, data = payload)
     if(response.raise_for_status()==None):
         print("se ha consultado exitosamente Los Dispositivos asociados al organization id N: ", oId,  " \\ el resultado de la consulta se encuentra en la variable: orgDev\n")
+    else:
+        print("Ocurrió un problema con la consulta")
     orgDev= json.loads(response.text)
     
     return orgDev
@@ -143,6 +147,8 @@ def deviceStatuses(oId): # realiza una consulta para ver el Status de los dispos
     deviceS= json.loads(response.text)
     if(response.raise_for_status()==None):
         print("se ha consultado exitosamente el estado dispositivos asociados al organization id N: ", oId,  " \\ el resultado de la consulta se encuentra en la variable: devStatus\n")
+    else:
+        print("Ocurrió un problema con la consulta")
     return deviceS
 
 
