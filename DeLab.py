@@ -159,7 +159,7 @@ devStatus= deviceStatuses(oId)
 
 ######################################### Default Data #######################################################
 
-print("¿Desea generar el inventario para los disporisitivos wireless y appliance?")
+print("¿Desea generar el inventario para los dispositivos wireless y appliance?")
 if(input("y or n : \n")=='y'):
     orgDev=productType()
     formpt(orgDev,devStatus)
