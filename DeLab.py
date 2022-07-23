@@ -12,8 +12,10 @@ from pprint import pp
 
 urlo = "https://api.meraki.com/api/v1/organizations"
 urld="https://api.meraki.com/api/v1/organizations/organizationId/devices"
+urlds = "https://api.meraki.com/api/v0/organizations/organizationId/deviceStatuses"
 
 ########################################## Headers/Payload ###################################################
+
 payload = None
 headers = {
     "Content-Type": "application/json",
@@ -28,17 +30,20 @@ headers = {
 def org_Data(): #Consulta la data de las organizaciones a las que tenemos 
     response = requests.request('GET', urlo, headers=headers, data = payload)
     orgData = json.loads(response.text)
-    print(response.raise_for_status())
+    if(response.raise_for_status()==None):
+        print("se ha consultado exitosamente las organizaciones a las que puede acceder con su API_kEY \\ el resultado de la consulta se encuentra en la variable: orgData\n")
     return orgData
 
-def org_Dev(): #Consulta los dispositivos de DeLab
-    oId=o_id()
+def org_Dev(oId): #Consulta los dispositivos de DeLab
     aux_url="https://api.meraki.com/api/v1/organizations/organizationId/devices".replace('organizationId', oId)
     #print(aux_url) #Debug print
     response= requests.request('GET', aux_url, headers=headers, data = payload)
+    if(response.raise_for_status()==None):
+        print("se ha consultado exitosamente Los Dispositivos asociados al organization id N: ", oId,  " \\ el resultado de la consulta se encuentra en la variable: orgDev\n")
     orgDev= json.loads(response.text)
-    print(response.raise_for_status())
+    
     return orgDev
+
 def  o_id(): #busca el organization Id asociado al nombre de organización que se le pasa
     oName=input("introduce el nombre de la organización de la cual quieres consultar sus dispositivos: ")
     #print(oName)   #Debug print
@@ -70,7 +75,16 @@ def productType(): #retorna una lista de dicionario con los datos de los disposi
             pt.append(orgDev[i])
     return pt
 
-def formpt(p):
+def prodevS():
+    ps=[]
+    for i in range(len(devStatus)):
+        if(devStatus[i]["status"] =='online'):
+            ps.append(devStatus[i])
+        if(devStatus[i]["status"] =='online'):
+            ps.append(devStatus[i])
+    return ps
+
+def formpt(p,s):
     for i in range(len(p)):
         pcopy = p[i].copy()
         p[i].clear()
@@ -80,16 +94,27 @@ def formpt(p):
             p[i]["model"] = pcopy["model"]
             p[i]["name"] = pcopy["name"]
             p[i]["mac"] = pcopy["mac"]
+            for k in range (len(s)):
+                if p[i]["mac"] == s[k]["mac"]:
+                    p[i]["publicIp"] = s[k]["publicIp"]
             p[i]["lanIp"] = pcopy["lanIp"]
             p[i]["serial"] = pcopy["serial"]
+            for j in range(len(s)):
+                if p[i]['serial']==s[j]['serial']:
+                    p[i]["status"]=s[j]['status']
         else:
             p[i]["productType"] = pcopy["productType"]
             p[i]["model"] = pcopy["model"]
             p[i]["name"] = pcopy["name"]
             p[i]["mac"] = pcopy["mac"]
+            for k in range (len(s)):
+                if p[i]["mac"] == s[k]["mac"]:
+                    p[i]["publicIp"] = s[k]["publicIp"]
             p[i]["wan1Ip"] = pcopy["wan1Ip"]
-            p[i]["wan2Ip"] = pcopy["wan2Ip"]
             p[i]["serial"] = pcopy["serial"]
+            for j in range (len(s)):
+                if p[i]["serial"] == s[j]["serial"]:
+                    p[i]["status"] = s[j]["status"]
         
 def jsontocsv(p): #genera un archivo con extensión .csv con el inventario de los dispositivos Wireless y Appliance
     blank=[]
@@ -110,16 +135,38 @@ def jsontocsv(p): #genera un archivo con extensión .csv con el inventario de lo
             if(p[0]['productType']!=p[i]['productType']):
                 inventory_writer.writerow(p[i].values())
 
-def printcsvdata(): #imprime en el terminal la data del inventario en formato .json
-    p=productType()
-    formpt(p)
-    pp(p)
+
+def deviceStatuses(oId): # realiza una consulta para ver el Status de los dispositivos asociados al oId
+    aux_url="https://api.meraki.com/api/v0/organizations/organizationId/deviceStatuses".replace('organizationId', oId)
+    #print(aux_url) #Debug print
+    response= requests.request('GET', aux_url, headers=headers, data = payload)
+    deviceS= json.loads(response.text)
+    if(response.raise_for_status()==None):
+        print("se ha consultado exitosamente el estado dispositivos asociados al organization id N: ", oId,  " \\ el resultado de la consulta se encuentra en la variable: devStatus\n")
+    return deviceS
+
+
+
+
+
 
 
 ########################################## Default requests ##################################################
 orgData=org_Data()
+oId=o_id()
+orgDev= org_Dev(oId)
+devStatus= deviceStatuses(oId)
 
-orgDev= org_Dev()
+######################################### Default Data #######################################################
+
+print("¿Desea generar el inventario para los disporisitivos wireless y appliance?")
+if(input("y or n : \n")=='y'):
+    orgDev=productType()
+    formpt(orgDev,devStatus)
+    jsontocsv(orgDev)
+    print("¿Desea imprimir en la terminal la información asociada al inventario?")
+    if(input("y or n : \n")=='y'):
+        pp(orgDev)
 
 
 

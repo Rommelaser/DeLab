@@ -19,13 +19,13 @@ y generar un archivo csv con el inventario de dispositivos wireless y appliance
 
 org_Data(): #Consulta la data de las organizaciones a las que tenemos acceso. Se le agregó el método raise_for_status() de python para validar que las solicitudes están recibiendo la respuesta esperada. Retorna una lista con las organizaciones.
 
-Si todo está ok imprime None
+Si todo está ok imprime un mensaje indicando donde se guarda la consulta y que todo esta bien
 
-org_Dev(oName): #Consulta los dispositivos de DeLab
+org_Dev(oId): #Consulta los dispositivos de DeLab
 (Se le agregó el método raise_for_status() de python para validar que las solicitudes están recibiendo la respuesta esperada.t )
-Ahora la función requiere el nombre de la organización a la cual se le quiere consultar los dispositivos que contiene, retorna una lista con los dispositivos.
+Ahora la función requiere el Id a la cual se le quiere consultar los dispositivos que contiene, retorna una lista con los dispositivos.
 
-si todo está Ok imprime None
+Si todo está ok imprime un mensaje indicando donde se guarda la consulta y que todo esta bien
 
 def printallOrg(): #lista todas las organizaciones
 
@@ -43,9 +43,8 @@ printOrgDev(i):   #imprime un dispositivo en específico de la organización DeL
 
 productType(): #retorna una lista de dicionario con los datos de los dispositivos tipo: Wireless y appliance
 
-formpt(p):
+formpt(p,s): Formatea el p con los campos necesarios para generar el inventario, requiere p lista de diccionarios con la información asociada a produtos wireles y appliance y s lista de dicionarios con la información de los status de los dispositivos de la organización.
 
 jsontocsv(p): #genera un archivo con extensión .csv con el inventario de los dispositivos Wireless y Appliance
 
-printcsvdata(): #imprime en el terminal la data del inventario en formato .json
 
