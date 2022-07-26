@@ -7,6 +7,7 @@ import requests
 import csv
 import os
 from pprint import pp
+import time
 
 ########################################## Urls #############################################################
 
@@ -153,6 +154,16 @@ def deviceStatuses(oId): # realiza una consulta para ver el Status de los dispos
         return deviceS
     else:
         print("Ocurrió un problema con la consulta")
+
+def countdown():
+    sec=5*60
+    while sec:
+        time.sleep(1)
+        sec-=1
+        #print(sec) #Debug print
+
+
+
     
 
 
@@ -162,13 +173,32 @@ def deviceStatuses(oId): # realiza una consulta para ver el Status de los dispos
 
 
 ########################################## Default requests ##################################################
+"""
 orgData=org_Data()
-#oId=o_id()  # si se desea que el código sea dinamico habilitar esta opción de nuevo
-oId='681155'
+oId=o_id()  # si se desea que el código sea dinamico habilitar esta opción de nuevo
+#oId='681155'
 orgDev= org_Dev(oId)
 devStatus= deviceStatuses(oId)
 
+"""
+
+
+while(1):
+    orgData=org_Data()
+    #oId=o_id()  # si se desea que el código sea dinamico habilitar esta opción de nuevo
+    oId='681155'
+    orgDev= org_Dev(oId)
+    devStatus= deviceStatuses(oId)
+    orgDev=productType()
+    formpt(orgDev,devStatus)
+    jsontocsv(orgDev)
+    pp(orgDev)
+    countdown()
+    
+
+
 ######################################### Default Data #######################################################
+"""
 
 print("¿Desea generar el inventario para los dispositivos wireless y appliance?")
 if(input("y or n : \n")=='y'):
@@ -179,7 +209,7 @@ if(input("y or n : \n")=='y'):
     if(input("y or n : \n")=='y'):
         pp(orgDev)
 
-
+"""
 
 
 
