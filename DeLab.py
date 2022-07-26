@@ -29,24 +29,27 @@ headers = {
 
 def org_Data(): #Consulta la data de las organizaciones a las que tenemos 
     response = requests.request('GET', urlo, headers=headers, data = payload)
-    orgData = json.loads(response.text)
     if(response.raise_for_status()==None):
-        print("se ha consultado exitosamente las organizaciones a las que puede acceder con su API_kEY \\ el resultado de la consulta se encuentra en la variable: orgData\n")
+        print("se ha consultado exitosamente las organizaciones a las que puede acceder con su API_kEY \nEl resultado de la consulta se encuentra en la variable: orgData\n")
+        orgData = json.loads(response.text)
+        return orgData
     else:
         print("Ocurrió un problema con la consulta")
-    return orgData
+        print(response.raise_for_status())
+    
 
 def org_Dev(oId): #Consulta los dispositivos de DeLab
     aux_url="https://api.meraki.com/api/v1/organizations/organizationId/devices".replace('organizationId', oId)
     #print(aux_url) #Debug print
     response= requests.request('GET', aux_url, headers=headers, data = payload)
     if(response.raise_for_status()==None):
-        print("se ha consultado exitosamente Los Dispositivos asociados al organization id N: ", oId,  " \\ el resultado de la consulta se encuentra en la variable: orgDev\n")
+        print("se ha consultado exitosamente Los Dispositivos asociados al organization id N: ", oId,  " \nEl resultado de la consulta se encuentra en la variable: orgDev\n")
+        orgDev= json.loads(response.text)
+        return orgDev
     else:
         print("Ocurrió un problema con la consulta")
-    orgDev= json.loads(response.text)
+        print(response.raise_for_status())
     
-    return orgDev
 
 def  o_id(): #busca el organization Id asociado al nombre de organización que se le pasa
     oName=input("introduce el nombre de la organización de la cual quieres consultar sus dispositivos: ")
@@ -144,12 +147,13 @@ def deviceStatuses(oId): # realiza una consulta para ver el Status de los dispos
     aux_url="https://api.meraki.com/api/v0/organizations/organizationId/deviceStatuses".replace('organizationId', oId)
     #print(aux_url) #Debug print
     response= requests.request('GET', aux_url, headers=headers, data = payload)
-    deviceS= json.loads(response.text)
     if(response.raise_for_status()==None):
-        print("se ha consultado exitosamente el estado dispositivos asociados al organization id N: ", oId,  " \\ el resultado de la consulta se encuentra en la variable: devStatus\n")
+        print("se ha consultado exitosamente el estado de los dispositivos asociados al organization id N: ", oId,  " \nEl resultado de la consulta se encuentra en la variable: devStatus\n")
+        deviceS= json.loads(response.text)
+        return deviceS
     else:
         print("Ocurrió un problema con la consulta")
-    return deviceS
+    
 
 
 
