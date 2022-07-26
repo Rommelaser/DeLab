@@ -163,7 +163,8 @@ def deviceStatuses(oId): # realiza una consulta para ver el Status de los dispos
 
 ########################################## Default requests ##################################################
 orgData=org_Data()
-oId=o_id()
+#oId=o_id()  # si se desea que el código sea dinamico habilitar esta opción de nuevo
+oId='681155'
 orgDev= org_Dev(oId)
 devStatus= deviceStatuses(oId)
 
