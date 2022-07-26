@@ -10,6 +10,11 @@ Profesora: Emma Di Battista
 
 Tarea de SDN
 
+# Nueva actualización
+
+Se realizó un contador para que se actualizara el archivo de inventario cada 5 minutos, esto inhabilita la entrada del usuario ya que no se esta trabajando con hilos.
+
+######################################################################################################################################
 
 El programa por defecto hace una consulta de las organizaciones a las que tenemos acceso con la clave el API_KEY entregado y guarda la respuesta en la variable orgData
 
@@ -46,5 +51,6 @@ productType(): #retorna una lista de dicionario con los datos de los dispositivo
 formpt(p,s): Formatea el p con los campos necesarios para generar el inventario, requiere p lista de diccionarios con la información asociada a produtos wireles y appliance y s lista de dicionarios con la información de los status de los dispositivos de la organización.
 
 jsontocsv(p): #genera un archivo con extensión .csv con el inventario de los dispositivos Wireless y Appliance
+
 
 
