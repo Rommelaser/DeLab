@@ -1,0 +1,9 @@
+services:
+  contenedor:
+    image: delab-py
+    volumes: 
+      - "vol1:/usr/src/app delab-py"
+version: '3.11.0b5'
+volumes:
+  vol1:
+    external: true
