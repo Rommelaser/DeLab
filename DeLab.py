@@ -176,16 +176,7 @@ def countdown():
 
 
 
-########################################## Default requests ##################################################
-"""
-orgData=org_Data()
-oId=o_id()  # si se desea que el código sea dinamico habilitar esta opción de nuevo
-#oId='681155'
-orgDev= org_Dev(oId)
-devStatus= deviceStatuses(oId)
-
-"""
-
+####################################################  main aplication ##########################################
 
 while(1):
     orgData=org_Data()
@@ -198,7 +189,19 @@ while(1):
     jsontocsv(orgDev)
     pp(orgDev)
     countdown()
-    
+
+
+######################################## main aplication asignación anterior #################################
+########################################## Default requests ##################################################
+"""
+orgData=org_Data()
+oId=o_id()  # si se desea que el código sea dinamico habilitar esta opción de nuevo
+#oId='681155'
+orgDev= org_Dev(oId)
+devStatus= deviceStatuses(oId)
+
+"""
+
 
 
 ######################################### Default Data #######################################################
