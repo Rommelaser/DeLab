@@ -1,5 +1,6 @@
 
 ########################################### Imports ########################################################
+from dataclasses import dataclass
 import pprint
 import json
 from urllib import response
@@ -8,7 +9,7 @@ import csv
 import os
 from pprint import pp
 import time
-
+from time import time, ctime, sleep
 ########################################## Urls #############################################################
 
 urlo = "https://api.meraki.com/api/v1/organizations"
@@ -125,10 +126,13 @@ def formpt(p,s):
                     p[i]["status"] = s[j]["status"]
         
 def jsontocsv(p): #genera un archivo con extensión .csv con el inventario de los dispositivos Wireless y Appliance
+
     blank=[]
     header=p[0].keys()
+    date=[ctime()]
     with open('inventory.csv',mode='w') as inventory:
         inventory_writer= csv.writer(inventory,delimiter=',')
+        inventory_writer.writerow(date)
         inventory_writer.writerow(header)
         for i in range(len(p)):
             if(p[0]['productType']==p[i]['productType']):
@@ -158,7 +162,7 @@ def deviceStatuses(oId): # realiza una consulta para ver el Status de los dispos
 def countdown():
     sec=5*60
     while sec:
-        time.sleep(1)
+        sleep(1)
         sec-=1
         #print(sec) #Debug print
 
