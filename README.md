@@ -14,6 +14,16 @@ Tarea de SDN
 
 Se realizó un contador para que se actualizara el archivo de inventario cada 5 minutos, esto inhabilita la entrada del usuario ya que no se esta trabajando con hilos.
 
+Se agregaron los Archivos Dockerfile y docker-compose.yml
+
+si se va a a iniciar el contenedor con el docker compose se debe crear antes un contenedor llamado vol1 para esto podemos correr
+
+docker volume create vol1
+
+si por el contrario se piensa hacer a partir del Dockerfile podemos correr la siguiente linea de comando 
+
+docker run -v vol1:/usr/src/app -itd delab-py Lo bueno de este comando es que si el contenedor no esta creado lo crea con el nombre que especificamos
+
 ######################################################################################################################################
 
 El programa por defecto hace una consulta de las organizaciones a las que tenemos acceso con la clave el API_KEY entregado y guarda la respuesta en la variable orgData
