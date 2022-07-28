@@ -22,7 +22,7 @@ docker volume create vol1
 
 si por el contrario se piensa hacer a partir del Dockerfile podemos correr la siguiente linea de comando 
 
-docker run -v vol1:/usr/src/app -itd delab-py Lo bueno de este comando es que si el contenedor no esta creado lo crea con el nombre que especificamos
+docker run -v vol1:/usr/src/app --name DeLab -itd delab-py Lo bueno de este comando es que si el contenedor no esta creado lo crea con el nombre que especificamos
 
 ######################################################################################################################################
 
